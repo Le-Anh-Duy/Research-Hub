@@ -1,0 +1,9 @@
+# Ví dụ config cho 1 lần chạy thực nghiệm.
+# Copy file này thành configs/<id-experiment>.yaml cho mỗi experiment mới,
+# rồi trỏ tới nó qua field config_file trong experiments/<id>.md.
+model_name: "<tên model trên HuggingFace, vd: bert-base-uncased>"
+method: "<vd: lora, full-finetune, zero-shot>"
+learning_rate: 5e-5
+batch_size: 16
+epochs: 3
+dataset: "sanity_data/sample.csv"

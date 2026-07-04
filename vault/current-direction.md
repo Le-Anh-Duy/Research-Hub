@@ -1,13 +1,13 @@
 ---
-updated: 2026-07-04
+updated: 2026-01-01
 ---
 
 ## Current hypothesis
 
 _(Viết ngắn gọn: đang theo đuổi hướng nào, và vì sao. File này là nguồn sự thật duy nhất cho "trạng thái hiểu biết hiện tại" — không phải nhật ký, mà là bản tóm tắt luôn cập nhật.)_
 
-Ví dụ: Fine-tuning một mô hình nhỏ (< 1B params) với LoRA cho task phân loại văn bản tiếng Việt cho ra kết quả tốt hơn zero-shot prompting với mô hình lớn hơn, với chi phí compute thấp hơn nhiều.
+_(Chưa có gì — chạy onboarding (agent / `npm run vault:onboard` / mở app) để điền hướng nghiên cứu ban đầu, hoặc tự viết trực tiếp vào đây.)_
 
 ## Changelog (pivot log)
 
-- **2026-07-04**: Khởi tạo research hub. Hướng ban đầu: so sánh LoRA fine-tuning vs. zero-shot prompting cho phân loại văn bản tiếng Việt.
+_(Mỗi khi pivot hướng đi, thêm 1 dòng mới ở đây — không xoá dòng cũ.)_

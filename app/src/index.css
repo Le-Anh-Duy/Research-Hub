@@ -1,0 +1,73 @@
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap");
+@import "tailwindcss";
+
+@theme {
+  --font-serif: "Playfair Display", serif;
+  --font-sans: "Inter", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+
+  --color-paper: #f9f8f6;
+  --color-ink: #1a1a1a;
+  --color-line: #e7e5e0;
+  --color-accent: #b5482a;
+  --color-accent-soft: #f2e3dc;
+  --color-good: #3f6b4a;
+  --color-warn: #b5822a;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  overflow: hidden;
+}
+
+.markdown-body h1,
+.markdown-body h2,
+.markdown-body h3 {
+  font-family: var(--font-serif);
+  font-weight: 600;
+  margin: 1em 0 0.4em;
+}
+.markdown-body h1 {
+  font-size: 1.5rem;
+}
+.markdown-body h2 {
+  font-size: 1.25rem;
+}
+.markdown-body h3 {
+  font-size: 1.1rem;
+}
+.markdown-body p {
+  margin: 0.6em 0;
+  line-height: 1.6;
+}
+.markdown-body ul,
+.markdown-body ol {
+  margin: 0.6em 0;
+  padding-left: 1.4em;
+}
+.markdown-body li {
+  margin: 0.2em 0;
+}
+.markdown-body code {
+  font-family: var(--font-mono);
+  background: var(--color-paper);
+  border: 1px solid var(--color-line);
+  border-radius: 4px;
+  padding: 0.1em 0.35em;
+  font-size: 0.85em;
+}
+.markdown-body a {
+  color: var(--color-accent);
+  text-decoration: underline;
+}
+.markdown-body strong {
+  font-weight: 600;
+}
