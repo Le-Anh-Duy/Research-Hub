@@ -1,0 +1,8 @@
+model_name: "vinai/phobert-base"
+method: lora
+lora_rank: 8
+lora_alpha: 16
+learning_rate: 5e-5
+batch_size: 16
+epochs: 3
+dataset: "sanity_data/sample.csv"
