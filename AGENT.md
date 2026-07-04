@@ -1,85 +1,91 @@
-# AGENT.md — hướng dẫn onboarding cho AI agent
+# AGENT.md — onboarding guide for AI agents
 
-Đây là **Research Hub**: vault Markdown local cho 1 researcher (single-user), có
-dashboard riêng ở `app/` (React + Express) đọc/ghi trực tiếp vào `vault/`.
-Không có database — mọi thứ là file `.md` với frontmatter.
+This is **Research Hub**: a local Markdown vault for a single researcher, with
+a dashboard at `app/` (React + Express) that reads/writes `vault/` directly.
+No database — everything is a `.md` file with frontmatter.
 
-File này chỉ dùng khi người dùng **chủ động yêu cầu** onboard họ (vd: "đọc
-AGENT.md và giúp tôi khởi tạo project"). Đừng tự động chạy flow này ở đầu mọi
-session — chỉ khi được yêu cầu rõ ràng.
+Only follow this file when the user **explicitly asks** to be onboarded (e.g.
+"read AGENT.md and help me set up this project"). Don't run this flow
+automatically at the start of every session — only when clearly requested.
 
-## Bước 1 — Kiểm tra vault đã onboard chưa
+## Step 1 — Check whether the vault is already onboarded
 
-Xem các thư mục `vault/tasks/`, `vault/experiments/`, `vault/notes/`,
-`vault/milestones/`. Nếu **bất kỳ** thư mục nào có file `.md` (không tính
-`vault/_templates/`), vault đã được dùng rồi — đừng onboard lại. Thay vào đó
-hỏi người dùng muốn giúp gì (vd: đọc `vault/current-direction.md` để nắm hướng
-hiện tại rồi tiếp tục hỗ trợ).
+Look at `vault/tasks/`, `vault/experiments/`, `vault/notes/`,
+`vault/milestones/`. If **any** of them contains a `.md` file (not counting
+`vault/_templates/`), the vault is already in use — don't onboard again.
+Instead, ask the user what they need help with (e.g. read
+`vault/current-direction.md` to understand the current direction, then help
+from there).
 
-Nếu tất cả đều rỗng → vault "fresh", tiếp tục bước 2.
+If all of them are empty, the vault is "fresh" — continue to step 2.
 
-## Bước 2 — Phỏng vấn nhanh
+## Step 2 — Quick interview
 
-Hỏi người dùng (hội thoại tự nhiên, không cần đúng thứ tự cứng nhắc):
+Ask the user (natural conversation, order doesn't need to be rigid):
 
-1. Tên project nghiên cứu là gì?
-2. Hướng nghiên cứu / giả thuyết ban đầu — đang định kiểm chứng điều gì, vì sao?
-3. (Tuỳ chọn) Mốc đầu tiên muốn đạt là gì?
-4. (Tuỳ chọn) Việc cụ thể đầu tiên cần làm ngay là gì?
+1. What's the name of the research project?
+2. What's the initial research direction / hypothesis — what are you testing, and why?
+3. (Optional) What's the first milestone you want to hit?
+4. (Optional) What's the first concrete task to start on right away?
 
-Không cần hỏi thêm gì khác lúc này (không cần experiment/reference cụ thể —
-để người dùng tự tạo sau qua nút "+ Mới" trong app, giữ onboarding nhẹ).
+Don't ask for anything else at this stage (no need for a specific
+experiment/reference yet — the user can create those later via the "+ New"
+button in the app; keep onboarding lightweight).
 
-## Bước 3 — Ghi file
+## Step 3 — Write the files
 
-Dùng ngày hôm nay thật (không dùng ngày placeholder trong template).
+Use today's real date (not the placeholder dates shown in the templates).
 
-**`vault/current-direction.md`** — ghi đè toàn bộ:
+**`vault/current-direction.md`** — overwrite entirely:
 
 ```
 ---
 updated: <YYYY-MM-DD>
 ---
 
-# <Tên project>
+# <Project name>
 
 ## Current hypothesis
 
-<hướng nghiên cứu / giả thuyết người dùng vừa nói>
+<the research direction / hypothesis the user just described>
 
 ## Changelog (pivot log)
 
-- **<YYYY-MM-DD>**: Khởi tạo research hub cho "<Tên project>".
+- **<YYYY-MM-DD>**: Started the research hub for "<Project name>".
 ```
 
-**Nếu có mốc đầu tiên** — tạo `vault/milestones/milestone-001.md`. Xem
-`vault/_templates/milestone.md` để lấy đúng field (đừng đoán schema — luôn đọc
-file template tương ứng trước khi viết, vì schema có thể đã đổi so với mô tả ở
-đây). `target_date` để `null` nếu người dùng không cho ngày cụ thể.
+**If a first milestone was given** — create `vault/milestones/milestone-001.md`.
+Read `vault/_templates/milestone.md` to get the exact fields (don't guess the
+schema — always read the matching template file before writing, since the
+schema may have evolved since this file was written). Leave `target_date` as
+`null` if the user didn't give a specific date.
 
-**Nếu có việc đầu tiên** — tạo `vault/tasks/task-001.md` tương tự, dựa theo
-`vault/_templates/task.md`.
+**If a first task was given** — create `vault/tasks/task-001.md` the same
+way, based on `vault/_templates/task.md`.
 
-Áp dụng nguyên tắc này cho **mọi** loại content: trước khi tạo note/experiment/
-reference/milestone/task bằng tay, luôn đọc file tương ứng trong
-`vault/_templates/` trước — đó là nguồn sự thật cho schema, không phải file
-này.
+Apply this rule to **every** content type: before manually creating a note,
+experiment, reference, milestone, or task, always read the matching file in
+`vault/_templates/` first — that's the source of truth for the schema, not
+this file.
 
-## Bước 4 — Xong
+## Step 4 — Done
 
-Báo người dùng:
-- Đã tạo xong `current-direction.md` (+ milestone/task nếu có).
-- Chạy `npm install` rồi `npm run dev` trong thư mục `app/` để mở dashboard
-  (client ở `localhost:5173`, server API ở `localhost:3001`).
-- Nếu project có code thực nghiệm: xem `vault/code/README.md` — vault đã có
-  sẵn scaffold reproducible-research (dev local trong `code/src/`, config mỗi
-  run trong `code/configs/`, notebook Colab chỉ orchestration).
+Tell the user:
+- `current-direction.md` has been created (plus milestone/task if provided).
+- Run `npm install` then `npm run dev` inside `app/` to open the dashboard
+  (client at `localhost:5173`, API server at `localhost:3001`).
+- If the project involves experiment code: see `vault/code/README.md` — the
+  vault already ships a reproducible-research scaffold (real logic lives
+  locally in `code/src/`, one config per run in `code/configs/`, Colab
+  notebooks are orchestration-only).
 
-## Ghi chú khác
+## Other notes
 
-- Cách onboard khác (không cần agent): `cd app && npm run vault:onboard`
-  (script terminal hỏi cùng 4 câu trên), hoặc mở thẳng dashboard — nếu vault
-  rỗng, app tự hiện form onboarding.
-- Muốn xoá hết làm lại từ đầu: `cd app && npm run vault:reset` (có xác nhận
-  trước khi xoá, vault nằm trong git nên vẫn khôi phục được nếu lỡ tay).
-- Chi tiết kiến trúc/API xem `README.md` ở repo root.
+- Other ways to onboard (no agent needed): `cd app && npm run vault:onboard`
+  (a terminal script asking the same 4 questions), or just open the
+  dashboard directly — if the vault is empty, the app shows an onboarding
+  form automatically.
+- To wipe everything and start over: `cd app && npm run vault:reset` (asks
+  for confirmation before deleting; the vault is tracked in git, so it's
+  still recoverable if run by mistake).
+- For architecture/API details, see `README.md` at the repo root.
