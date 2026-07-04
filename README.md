@@ -1,47 +1,50 @@
+🇬🇧 English | **🇻🇳 [Tiếng Việt](README.vi.md)**
+
 # Research Hub
 
-Dashboard cá nhân, local-first cho 1 researcher — quản lý notes, tasks,
-experiments (có nhánh như git), references, milestones, và code thực nghiệm.
-Không có database: mọi thứ là file Markdown trong `vault/`, đồng bộ qua git
-như bình thường.
+A personal, local-first dashboard for a single researcher — notes, tasks,
+experiments (with git-like branching), references, milestones, and
+experiment code, all in one place. No database: everything is a Markdown
+file in `vault/`, synced through git like any other repo.
 
-## Cấu trúc
+## Structure
 
 ```
 vault/
-  current-direction.md   # hướng nghiên cứu hiện tại — nguồn sự thật duy nhất
-  notes/                 # brainstorm tự do
-  tasks/                 # việc cần làm
-  experiments/           # thực nghiệm, có parent_experiment để rẽ nhánh
-  references/             # paper/tài liệu tham khảo
-  milestones/             # mốc lớn
-  sessions/               # 1 file/ngày, tự tạo khi mở dashboard
-  code/                   # scaffold reproducible-research (xem code/README.md)
-  _templates/             # schema mẫu cho từng loại — KHÔNG phải content thật
-app/                      # dashboard (React + Express), chạy local
+  current-direction.md   # current research direction — the single source of truth
+  notes/                  # free-form brainstorming
+  tasks/                  # things to do
+  experiments/            # experiments, with parent_experiment for branching
+  references/              # papers / reading list
+  milestones/              # big milestones
+  sessions/                # one file per work day, auto-created on dashboard open
+  code/                    # reproducible-research scaffold (see code/README.md)
+  _templates/              # schema reference for each content type — NOT real content
+app/                       # the dashboard itself (React + Express), runs locally
 ```
 
-## Bắt đầu (sau khi clone về)
+## Getting started (after cloning)
 
 ```
 cd app
 npm install
 ```
 
-Vault đang trống (chỉ có template). Chọn **1 trong 3 cách** để khởi tạo:
+The vault starts empty (templates only). Pick **one of three ways** to seed it:
 
-1. **Dùng AI agent** (Claude Code hoặc tương tự): mở terminal trong repo này,
-   bảo agent *"đọc AGENT.md và giúp tôi onboard"*. Agent sẽ hỏi vài câu (tên
-   project, hướng nghiên cứu, mốc/task đầu tiên nếu có) rồi tự tạo file.
-2. **Script terminal**: `npm run vault:onboard` — hỏi cùng những câu đó ngay
-   trong terminal, không cần agent.
-3. **Ngay trong app**: chạy `npm run dev`, mở `http://localhost:5173` — nếu
-   vault còn trống, dashboard tự hiện form onboarding.
+1. **Use an AI agent** (Claude Code or similar): open a terminal in this repo
+   and ask the agent to *"read AGENT.md and help me onboard"*. It will ask a
+   few questions (project name, research direction, first milestone/task if
+   any) and create the files for you.
+2. **Terminal script**: `npm run vault:onboard` — asks the same questions
+   directly in the terminal, no agent needed.
+3. **In the app itself**: run `npm run dev`, open `http://localhost:5173` — if
+   the vault is still empty, the dashboard shows an onboarding form automatically.
 
-Cả 3 cách đều tạo ra đúng 1 kết quả: `vault/current-direction.md` được điền,
-và (nếu bạn cho biết) 1 milestone + 1 task đầu tiên.
+All three paths produce the same result: `vault/current-direction.md` filled
+in, plus (if you provide them) a first milestone and a first task.
 
-## Dùng hằng ngày
+## Daily use
 
 ```
 cd app
@@ -49,29 +52,34 @@ npm run dev
 ```
 
 - Client: `http://localhost:5173`, API: `http://localhost:3001`.
-- Sidebar: **Sessions** (mỗi ngày làm việc 1 file, mục tiêu tự điền từ
-  `next_action` của experiment đang chạy), **Notes** (nổi bật note đang nuôi
-  hướng active, mờ note cũ không đụng tới), **Tasks/Experiments/References/
-  Milestones**, **External** (browse + sửa trực tiếp file `.md`/`.txt` trong
-  `code/` hoặc thư mục project ngoài đã đăng ký).
-- Gõ `[[id]]` trong note để link chéo — tự thành link bấm được, và hiện
-  ngược lại ở "Backlinks" của file được trỏ tới.
-- Nút **"+ Mới"** tạo đúng loại content (Note/Task/Experiment/Reference/
-  Milestone) với đúng khung frontmatter.
+- Sidebar: **Sessions** (one file per work day, goal auto-filled from the
+  running experiment's `next_action`), **Notes** (highlights notes feeding
+  the active research thread, dims stale ones), **Tasks / Experiments /
+  References / Milestones**, **External** (browse and edit `.md`/`.txt`
+  files directly, either inside `code/` or in a registered outside project
+  folder).
+- Type `[[id]]` in a note to cross-link — it renders as a clickable link and
+  shows up in the "Backlinks" panel of the file it points to.
+- The **"+ New"** button creates the right kind of content (Note / Task /
+  Experiment / Reference / Milestone) with the correct frontmatter already
+  filled in.
 
-## Reset vault
+## Resetting the vault
 
-Muốn xoá hết làm lại từ đầu (vd: đang thử nghiệm, muốn về trạng thái sạch):
+To wipe everything and start clean again (e.g. after experimenting with the
+app):
 
 ```
 cd app
 npm run vault:reset
 ```
 
-Có xác nhận trước khi xoá. Vault nằm trong git nên nếu lỡ tay vẫn khôi phục
-được bằng `git checkout -- vault/` (miễn chưa commit đè lên).
+Asks for confirmation before deleting anything. The vault is tracked in git,
+so an accidental run can still be recovered with `git checkout -- vault/`
+(as long as you haven't committed over it).
 
-## Schema từng loại content
+## Content schema
 
-Xem `vault/_templates/*.md` — đó là nguồn sự thật cho frontmatter schema của
-note/task/experiment/reference/milestone/session, có chú thích từng field.
+See `vault/_templates/*.md` — that's the source of truth for the frontmatter
+schema of each content type (note/task/experiment/reference/milestone/
+session), with every field annotated.
